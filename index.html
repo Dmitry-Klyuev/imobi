@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechRepair Pro - Ремонт телефонов, планшетов, ноутбуков</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#00c6ff',
+            secondary: '#0072ff',
+            accent: '#00ffcc',
+            dark: '#0a0a14',
+            darker: '#050509',
+            light: '#f0f8ff',
+          },
+          animation: {
+            'fade-in-up': 'fadeInUp 0.8s ease-out',
+            'float': 'float 6s ease-in-out infinite',
+            'typewriter': 'typewriter 2s steps(40) forwards',
+            'pulse-glow': 'pulseGlow 2s infinite',
+          },
+          keyframes: {
+            fadeInUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            typewriter: {
+              'from': { width: '0' },
+              'to': { width: '100%' },
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 5px rgba(0, 198, 255, 0.5)' },
+              '50%': { boxShadow: '0 0 20px rgba(0, 198, 255, 0.8)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+      .gradient-text {
+          background: linear-gradient(45deg, #00c6ff, #00ffcc);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+      }
+
+      .service-card {
+          transition: all 0.4s ease;
+          background: linear-gradient(145deg, rgba(20, 20, 30, 0.8), rgba(10, 10, 20, 0.9));
+      }
+
+      .service-card:hover {
+          transform: translateY(-10px);
+          box-shadow: 0 15px 40px rgba(0, 114, 255, 0.2);
+          border-color: rgba(0, 198, 255, 0.3);
+      }
+
+      .nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: linear-gradient(90deg, #00c6ff, #00ffcc);
+          transition: width 0.4s ease;
+      }
+
+      .nav-link:hover::after {
+          width: 100%;
+      }
+
+      .btn-glow {
+          position: relative;
+          overflow: hidden;
+      }
+
+      .btn-glow::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+          transition: left 0.5s;
+      }
+
+      .btn-glow:hover::after {
+          left: 100%;
+      }
+
+      .hero-video {
+          opacity: 0.7;
+      }
+
+      @media (max-width: 768px) {
+          .hero-video {
+              opacity: 0.3;
+          }
+      }
+  </style>
+</head>
+<body class="bg-darker text-light font-sans overflow-x-hidden">
+<!-- Навигация -->
+<header class="fixed top-0 w-full bg-dark/90 backdrop-blur-lg shadow-2xl z-50 transition-all duration-400">
+  <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div class="flex items-center">
+      <i class="fas fa-tools text-primary text-3xl mr-3"></i>
+      <span class="text-2xl font-bold gradient-text">TechRepair Pro</span>
+    </div>
+
+    <div class="hidden md:flex space-x-8">
+      <a href="#home" class="nav-link relative text-light font-medium py-2 transition-colors duration-300 hover:text-primary">Главная</a>
+      <a href="#about" class="nav-link relative text-light font-medium py-2 transition-colors duration-300 hover:text-primary">О нас</a>
+      <a href="#services" class="nav-link relative text-light font-medium py-2 transition-colors duration-300 hover:text-primary">Услуги</a>
+      <a href="#process" class="nav-link relative text-light font-medium py-2 transition-colors duration-300 hover:text-primary">Процесс</a>
+      <a href="#contact" class="nav-link relative text-light font-medium py-2 transition-colors duration-300 hover:text-primary">Контакты</a>
+    </div>
+
+    <div class="md:hidden text-2xl">
+      <i class="fas fa-bars cursor-pointer" id="mobileMenuButton"></i>
+    </div>
+  </nav>
+
+  <!-- Мобильное меню -->
+  <div class="hidden md:hidden bg-dark/95 backdrop-blur-lg py-4" id="mobileMenu">
+    <div class="container mx-auto px-4 flex flex-col space-y-4">
+      <a href="#home" class="text-light font-medium py-2 text-center transition-colors duration-300 hover:text-primary">Главная</a>
+      <a href="#about" class="text-light font-medium py-2 text-center transition-colors duration-300 hover:text-primary">О нас</a>
+      <a href="#services" class="text-light font-medium py-2 text-center transition-colors duration-300 hover:text-primary">Услуги</a>
+      <a href="#process" class="text-light font-medium py-2 text-center transition-colors duration-300 hover:text-primary">Процесс</a>
+      <a href="#contact" class="text-light font-medium py-2 text-center transition-colors duration-300 hover:text-primary">Контакты</a>
+    </div>
+  </div>
+</header>
+
+<!-- Герой секция -->
+<section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+  <video autoplay muted loop playsinline class="hero-video absolute top-0 left-0 w-full h-full object-cover z-0">
+    <source src="assets/promo_video.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+  </video>
+  <div class="absolute inset-0 bg-gradient-to-br from-darker/90 via-dark/70 to-darker/90 z-10"></div>
+
+  <div class="container mx-auto px-4 text-center z-20 animate-fade-in-up">
+    <h1 class="text-4xl md:text-6xl font-bold mb-6 gradient-text">Профессиональный ремонт техники</h1>
+    <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90">Вернем к жизни ваш телефон, планшет или ноутбук. Быстро, качественно и с гарантией. Опытные мастера, оригинальные запчасти, доступные цены.</p>
+    <a href="#contact" class="btn-glow inline-block bg-gradient-to-r from-primary to-secondary text-white font-semibold py-4 px-8 rounded-full shadow-2xl transition-all duration-400 hover:translate-y-[-5px]">Заказать ремонт</a>
+  </div>
+</section>
+
+<!-- О нас -->
+<section id="about" class="py-20 bg-dark">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center mb-16 relative">
+      Почему выбирают нас
+      <span class="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></span>
+    </h2>
+
+    <div class="flex flex-col lg:flex-row items-center gap-12">
+      <div class="lg:w-1/2 animate-fade-in-up">
+        <h3 class="text-3xl font-bold mb-6">TechRepair Pro - ремонт с гарантией качества</h3>
+        <p class="text-lg mb-6 opacity-90">Мы специализируемся на ремонте любой сложности: от замены экранов до восстановления материнских плат. Наши мастера имеют многолетний опыт и регулярно повышают квалификацию.</p>
+        <p class="text-lg mb-8 opacity-90">Используем только оригинальные или качественные совместимые запчасти. Предоставляем гарантию на все виды работ от 3 до 12 месяцев.</p>
+
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i> Бесплатная диагностика</li>
+          <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i> Ремонт в присутствии клиента</li>
+          <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i> Гарантия до 12 месяцев</li>
+          <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i> Оригинальные запчасти</li>
+          <li class="flex items-center"><i class="fas fa-check-circle text-accent mr-3"></i> Срочный ремонт за 1-2 часа</li>
+        </ul>
+
+        <a href="#services" class="btn-glow inline-block bg-gradient-to-r from-primary to-secondary text-white font-semibold py-3 px-6 rounded-full shadow-xl transition-all duration-400 hover:translate-y-[-3px]">Наши услуги</a>
+      </div>
+
+      <div class="lg:w-1/2 animate-fade-in-up">
+        <div class="rounded-2xl overflow-hidden shadow-2xl transform perspective-1000 rotate-y-[-5deg] transition-transform duration-500 hover:rotate-y-0">
+          <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Ремонт техники" class="w-full h-auto transition-transform duration-500 hover:scale-105">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Услуги -->
+<section id="services" class="py-20 bg-darker">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center mb-16 relative">
+      Наши услуги
+      <span class="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></span>
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Карточка услуги 1 -->
+      <div class="service-card rounded-2xl p-8 border border-primary/10 shadow-2xl opacity-0 transform translate-y-8 transition-all duration-600 hover:border-primary/30">
+        <div class="text-5xl mb-6 gradient-text text-center">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 text-center">Ремонт телефонов</h3>
+        <p class="text-gray-300 mb-6 text-center">Замена экранов, дисплеев, аккумуляторов, ремонт после падения и залития жидкостью, восстановление программного обеспечения.</p>
+        <div class="text-2xl font-bold text-accent text-center mb-6">от 990 ₽</div>
+        <a href="#contact" class="btn-glow block w-full bg-gradient-to-r from-primary to-secondary text-white font-semibold py-3 rounded-full text-center shadow-xl transition-all duration-400 hover:translate-y-[-3px]">Заказать</a>
+      </div>
+
+      <!-- Карточка услуги 2 -->
+      <div class="service-card rounded-2xl p-8 border border-primary/10 shadow-2xl opacity-0 transform translate-y-8 transition-all duration-600 hover:border-primary/30">
+        <div class="text-5xl mb-6 gradient-text text-center">
+          <i class="fas fa-tablet-alt"></i>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 text-center">Ремонт планшетов</h3>
+        <p class="text-gray-300 mb-6 text-center">Замена стекол и дисплеев, ремонт разъемов, восстановление работы сенсора, ремонт после механических повреждений.</p>
+        <div class="text-2xl font-bold text-accent text-center mb-6">от 1 490 ₽</div>
+        <a href="#contact" class="btn-glow block w-full bg-gradient-to-r from-primary to-secondary text-white font-semibold py-3 rounded-full text-center shadow-xl transition-all duration-400 hover:translate-y-[-3px]">Заказать</a>
+      </div>
+
+      <!-- Карточка услуги 3 -->
+      <div class="service-card rounded-2xl p-8 border border-primary/10 shadow-2xl opacity-0 transform translate-y-8 transition-all duration-600 hover:border-primary/30">
+        <div class="text-5xl mb-6 gradient-text text-center">
+          <i class="fas fa-laptop"></i>
+        </div>
+        <h3 class="text-2xl font-bold mb-4 text-center">Ремонт ноутбуков</h3>
+        <p class="text-gray-300 mb-6 text-center">Чистка от пыли, замена термопасты, ремонт клавиатур, замена матриц, восстановление материнских плат, апгрейд.</p>
+        <div class="text-2xl font-bold text-accent text-center mb-6">от 1 990 ₽</div>
+        <a href="#contact" class="btn-glow block w-full bg-gradient-to-r from-primary to-secondary text-white font-semibold py-3 rounded-full text-center shadow-xl transition-all duration-400 hover:translate-y-[-3px]">Заказать</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Процесс работы -->
+<section id="process" class="py-20 bg-dark">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center mb-16 relative">
+      Как мы работаем
+      <span class="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></span>
+    </h2>
+
+    <div class="relative">
+      <div class="hidden lg:block absolute top-12 left-1/2 transform -translate-x-1/2 w-3/4 h-1 bg-gradient-to-r from-primary to-accent z-0"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-4 relative z-10">
+        <!-- Шаг 1 -->
+        <div class="text-center opacity-0 transform translate-y-8 transition-all duration-600">
+          <div class="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl shadow-2xl">1</div>
+          <h3 class="text-xl font-bold mb-4">Диагностика</h3>
+          <p class="text-gray-300">Бесплатно определяем причину неисправности и составляем смету ремонта</p>
+        </div>
+
+        <!-- Шаг 2 -->
+        <div class="text-center opacity-0 transform translate-y-8 transition-all duration-600">
+          <div class="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl shadow-2xl">2</div>
+          <h3 class="text-xl font-bold mb-4">Согласование</h3>
+          <p class="text-gray-300">Согласовываем с вами стоимость и сроки ремонта, только после этого приступаем к работе</p>
+        </div>
+
+        <!-- Шаг 3 -->
+        <div class="text-center opacity-0 transform translate-y-8 transition-all duration-600">
+          <div class="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl shadow-2xl">3</div>
+          <h3 class="text-xl font-bold mb-4">Ремонт</h3>
+          <p class="text-gray-300">Выполняем ремонт с использованием качественных комплектующих и современного оборудования</p>
+        </div>
+
+        <!-- Шаг 4 -->
+        <div class="text-center opacity-0 transform translate-y-8 transition-all duration-600">
+          <div class="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-xl shadow-2xl">4</div>
+          <h3 class="text-xl font-bold mb-4">Тестирование</h3>
+          <p class="text-gray-300">Тщательно тестируем устройство после ремонта и предоставляем гарантию</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Контакты -->
+<section id="contact" class="py-20 bg-darker">
+  <div class="container mx-auto px-4">
+    <h2 class="text-4xl font-bold text-center mb-16 relative">
+      Свяжитесь с нами
+      <span class="absolute bottom-[-10px] left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full"></span>
+    </h2>
+
+    <div class="flex flex-col lg:flex-row gap-12">
+      <!-- Контактная информация -->
+      <div class="lg:w-1/2">
+        <h3 class="text-3xl font-bold mb-6">Приезжайте в наш сервис</h3>
+        <p class="text-lg mb-8 opacity-90">Мы находимся в удобном месте с парковкой. При необходимости можем организовать курьерскую доставку вашего устройства.</p>
+
+        <div class="space-y-6">
+          <div class="flex items-center">
+            <i class="fas fa-map-marker-alt text-primary text-2xl mr-4 w-8"></i>
+            <span class="text-lg">ул. Техническая, 15, г. Москва</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-phone text-primary text-2xl mr-4 w-8"></i>
+            <span class="text-lg">+7 (495) 123-45-67</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-envelope text-primary text-2xl mr-4 w-8"></i>
+            <span class="text-lg">info@techrepairpro.ru</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-clock text-primary text-2xl mr-4 w-8"></i>
+            <span class="text-lg">Пн-Вс: 9:00 - 21:00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Мессенджеры -->
+      <div class="lg:w-1/2 bg-gradient-to-br from-dark/80 to-darker/90 rounded-2xl p-8 border border-primary/10 shadow-2xl">
+        <h3 class="text-3xl font-bold mb-6 text-center">Напишите нам в мессенджер</h3>
+        <p class="text-lg mb-8 text-center opacity-90">Выберите удобный способ связи. Консультант ответит в течение 5 минут и запишет вас на ремонт.</p>
+
+        <div class="space-y-4 max-w-md mx-auto">
+          <a href="viber://chat?number=74951234567" class="flex items-center bg-gradient-to-r from-purple-600 to-purple-800 text-white font-semibold py-4 px-6 rounded-xl shadow-lg transition-all duration-300 hover:translate-y-[-3px] hover:shadow-xl">
+            <i class="fab fa-viber text-2xl mr-4"></i>
+            <span class="flex-grow text-center">Написать в Viber</span>
+          </a>
+
+          <a href="https://t.me/techrepairpro" class="flex items-center bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-4 px-6 rounded-xl shadow-lg transition-all duration-300 hover:translate-y-[-3px] hover:shadow-xl">
+            <i class="fab fa-telegram text-2xl mr-4"></i>
+            <span class="flex-grow text-center">Написать в Telegram</span>
+          </a>
+
+          <a href="https://wa.me/74951234567" class="flex items-center bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold py-4 px-6 rounded-xl shadow-lg transition-all duration-300 hover:translate-y-[-3px] hover:shadow-xl">
+            <i class="fab fa-whatsapp text-2xl mr-4"></i>
+            <span class="flex-grow text-center">Написать в WhatsApp</span>
+          </a>
+        </div>
+
+        <p class="text-sm text-gray-400 text-center mt-6 italic">* Нажимая на кнопку, вы переходите в приложение мессенджера</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Футер -->
+<footer class="bg-black py-12 border-t border-primary/10">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <!-- Колонка 1 -->
+      <div>
+        <h3 class="text-xl font-bold mb-4 gradient-text">TechRepair Pro</h3>
+        <p class="text-gray-400 mb-6">Профессиональный ремонт телефонов, планшетов и ноутбуков с гарантией качества. Работаем с 2015 года.</p>
+        <div class="flex space-x-4">
+          <a href="#" class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white transition-transform duration-300 hover:translate-y-[-3px]">
+            <i class="fab fa-vk"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white transition-transform duration-300 hover:translate-y-[-3px]">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white transition-transform duration-300 hover:translate-y-[-3px]">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Колонка 2 -->
+      <div>
+        <h3 class="text-xl font-bold mb-4">Услуги</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Ремонт iPhone</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Ремонт Samsung</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Ремонт Xiaomi</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Ремонт ноутбуков</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Восстановление данных</a></li>
+        </ul>
+      </div>
+
+      <!-- Колонка 3 -->
+      <div>
+        <h3 class="text-xl font-bold mb-4">Контакты</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Адреса сервисов</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Вакансии</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Отзывы</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Акции</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">Блог</a></li>
+        </ul>
+      </div>
+
+      <!-- Колонка 4 -->
+      <div>
+        <h3 class="text-xl font-bold mb-4">Подписка на новости</h3>
+        <p class="text-gray-400 mb-4">Узнавайте первыми о акциях и специальных предложениях.</p>
+        <div class="flex">
+          <input type="email" placeholder="Ваш email" class="flex-grow bg-dark border border-gray-700 rounded-l-lg px-4 py-2 text-white focus:outline-none focus:border-primary">
+          <button class="bg-gradient-to-r from-primary to-secondary text-white font-semibold px-4 rounded-r-lg transition-all duration-300 hover:opacity-90">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500">
+      <p>&copy; 2023 TechRepair Pro. Все права защищены.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Мобильное меню
+  const mobileMenuButton = document.getElementById('mobileMenuButton');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  mobileMenuButton.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  // Плавная прокрутка
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const targetId = this.getAttribute('href');
+      if(targetId === '#') return;
+
+      const targetElement = document.querySelector(targetId);
+      if(targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+
+        // Закрываем мобильное меню после клика
+        if(!mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add('hidden');
+        }
+      }
+    });
+  });
+
+  // Анимация появления элементов при скролле
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  // Наблюдаем за карточками услуг и шагами процесса
+  document.querySelectorAll('.service-card, .text-center.opacity-0').forEach(element => {
+    observer.observe(element);
+  });
+
+  // Фиксация навигации при скролле
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    if(window.scrollY > 100) {
+      header.classList.add('shadow-2xl');
+    } else {
+      header.classList.remove('shadow-2xl');
+    }
+  });
+
+  // Анимация для видео-фона
+  const video = document.querySelector('.hero-video');
+  if (video) {
+    video.playbackRate = 0.7;
+  }
+
+  // Создаем частицы для героя
+  function createParticles() {
+    const hero = document.querySelector('#home');
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'absolute rounded-full bg-primary/50 animate-float';
+      particle.style.width = Math.random() * 4 + 'px';
+      particle.style.height = particle.style.width;
+      particle.style.top = Math.random() * 100 + '%';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 5 + 's';
+      hero.appendChild(particle);
+    }
+  }
+
+  window.addEventListener('load', createParticles);
+</script>
+</body>
+</html>
